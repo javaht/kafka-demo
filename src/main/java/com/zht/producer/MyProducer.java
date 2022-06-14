@@ -27,12 +27,19 @@ public class MyProducer {
         props.put(ProducerConfig.ACKS_CONFIG, "all");
           //重试次数
         props.put("retries", 3);
-             //批次大小
-        props.put("batch.size", 16384);
-            //等待时间
-        props.put("linger.ms", 1);
-           //RecordAccumulator 缓冲区大小
+
+
+        //提高生产者吞吐量的四个参数
+         //RecordAccumulator 缓冲区大小
         props.put("buffer.memory", 33554432);
+        //批次大小
+        props.put("batch.size", 16384);
+        //等待时间
+        props.put("linger.ms", 1);
+        //压缩
+        props.put(ProducerConfig.COMPRESSION_TYPE_CONFIG,"snappy");
+
+
 
          //8.序列化方面的
         props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");

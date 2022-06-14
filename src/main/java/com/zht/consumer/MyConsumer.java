@@ -4,7 +4,9 @@ import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.common.TopicPartition;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Properties;
 
@@ -27,21 +29,29 @@ public class MyConsumer {
          properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,"org.apache.kafka.common.serialization.StringDeserializer");
          properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,"org.apache.kafka.common.serialization.StringDeserializer");
 
-          //消费者组
+          //消费者组id
         properties.put(ConsumerConfig.GROUP_ID_CONFIG,"bigdata2");
 
          //重置消费者的offset
         properties.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG,"earliest");
 
-
-
-
         //创建消费者
         KafkaConsumer<String, String>  KafkaConsumer = new KafkaConsumer<String, String>(properties);
 
-
         //订阅主题
         KafkaConsumer.subscribe(Arrays.asList("four"));
+
+        KafkaConsumer.offsetsForTimes();
+
+         //消费主题对应的分区
+       /*
+
+       ArrayList<TopicPartition>  = new ArrayList<>();
+        topicPartitions.add(new TopicPartition("four",1));
+        KafkaConsumer.assign(topicPartitions);
+
+        */
+
 
     while (true){
     //获取数据
